@@ -20,20 +20,21 @@ import static com.codeborne.selenide.Configuration.baseUrl;
 import static com.codeborne.selenide.Selenide.*;
 import static org.testng.Assert.assertNotEquals;
 
-public class EngagementBot extends Start{
+public class EngagementBot extends StartGreenTest {
     private String result = "[stage] Green Test passed";
     private String projectName = "Engagement";
-//    private PageNavigation pn = new PageNavigation();
+
+    //    private PageNavigation pn = new PageNavigation();
     @Test
-    public void loginAsAdmin(){
+    public void loginAsAdmin() {
 //        WebDriver driver = WebDriverRunner.getWebDriver();
-        try{
+        try {
             open(baseUrl);
             sleep(3000);
-            SelenideElement e = $ ("[placeholder='Email']");
+            SelenideElement e = $("[placeholder='Email']");
             e.setValue("ponomarevafortest@gmail.com");
 //        e.setValue("a.ponomareva@talenttech.ru");
-            SelenideElement e2 = $ ("[class='ant-btn ant-btn-primary']");
+            SelenideElement e2 = $("[class='ant-btn ant-btn-primary']");
             e2.click();
             sleep(1000);
             ElementsCollection e3 = $$("[class^='error-message']");
@@ -51,7 +52,7 @@ public class EngagementBot extends Start{
                     "Missing company list");
             //проверяем, что на остальных страницах есть данные
             int tt = 0;
-            for (int aac=1; aac<sideMenu.size(); aac++){
+            for (int aac = 1; aac < sideMenu.size(); aac++) {
                 //кликаем по иконке в боковом меню
                 sideMenu.get(aac).click();
                 sleep(3000);
@@ -64,12 +65,13 @@ public class EngagementBot extends Start{
                         "Missing pool/analitic/user list");
             }
 
-        } catch (AssertionError a){
+        } catch (AssertionError a) {
             result = "[stage] Green Test failed because: " + a.getMessage();
-        } catch (Exception e){
+        } catch (Exception e) {
             result = "[stage] Green Test failed because: " + e.getMessage();
         }
     }
+
     private void getInboxFolder() throws MessagingException, IOException {
         sleep(10000);
         // Устанавливаем протокол
@@ -79,9 +81,9 @@ public class EngagementBot extends Start{
         // Получаем сессию
         Session session = Session.getInstance(props, null);
         // Получаем место в сессии
-        Store store =  session.getStore();
+        Store store = session.getStore();
         // Коннектимся к ящику
-        store.connect("imap.gmail.com","ponomarevafortest@gmail.com", "123456-qwerty");
+        store.connect("imap.gmail.com", "ponomarevafortest@gmail.com", "123456-qwerty");
 //        store.connect("imap.gmail.com","a.ponomareva@talenttech.ru", "jCNHJD2012");
         // В ящике ищем папку "Входящие"
         Folder inbox = store.getFolder("Inbox");
@@ -94,7 +96,7 @@ public class EngagementBot extends Start{
         SearchTerm totalTerm = new AndTerm(flagSeen, searchTerm);
         Message[] message = inbox.search(totalTerm);
         sleep(3000);
-        Assert.assertFalse(message.length==0, "No unread message");
+        Assert.assertFalse(message.length == 0, "No unread message");
         for (int i = 0, n = message.length; i < n; i++) {
             String contentType = message[i].getContentType();
             if (contentType.contains("text/plain") || contentType.contains("text/html")) {
@@ -103,8 +105,7 @@ public class EngagementBot extends Start{
                     messageContent = content.toString();
                     System.out.println(messageContent);
                 }
-            }
-            else if (contentType.contains("multipart")) {
+            } else if (contentType.contains("multipart")) {
                 Multipart multiPart = (Multipart) message[i].getContent();
                 int numberOfParts = multiPart.getCount();
                 for (int partCount = 0; partCount < numberOfParts; partCount++) {
@@ -124,11 +125,13 @@ public class EngagementBot extends Start{
         store.close();
 //    WebDriverRunner.getWebDriver().quit();
     }
+
     @AfterMethod
     private void closeBrowser() {
         SlackBot sb = new SlackBot();
         sb.sendResulttoSlack(projectName, result);
         close();
+        System.out.println("Тест проверки стенда прошел");
 //        WebDriverRunner.getWebDriver().quit();
     }
 }

@@ -1,0 +1,68 @@
+<suite name="EngagementSmokeTest" verbose="1">
+    <test name="AdminAutorization">
+    <parameter name="browser" value="chrome" />
+    <classes>
+        <class name="AdminAuthorization" />
+        <class name="AdminAuthorizationCheck" />
+    </classes>
+</test>
+    <test name="LoadStructure">
+        <parameter name="browser" value="chrome" />
+        <classes>
+            <class name="AdminAuthorization" />
+            <class name="CreateCompanyStructure" />
+        </classes>
+    </test>
+    <test name="AdminDownloadStructure">
+        <parameter name="browser" value="chrome" />
+        <classes>
+            <class name="AdminAuthorization" />
+            <class name="DownloadStructure" />
+        </classes>
+    </test>
+    <test name="AdminCreatePool">
+        <parameter name="browser" value="chrome" />
+        <classes>
+            <class name="AdminAuthorization" />
+            <class name="CreatePoolAndCheck" />
+        </classes>
+    </test>
+    <test name="AdminCreatePage">
+        <parameter name="browser" value="chrome" />
+        <classes>
+            <class name="AdminAuthorization" />
+            <class name="CreatePoolAndCheck" />
+            <class name="CreatePage" />
+        </classes>
+    </test>
+    <test name="AdminStartPool">
+        <parameter name="browser" value="chrome" />
+        <classes>
+            <class name="AdminAuthorization" />
+            <class name="CreatePoolAndCheck" />
+            <class name="OpenPoolAndCheck" />
+        </classes>
+    </test>
+    <test name="AdminClosePool">
+        <parameter name="browser" value="chrome" />
+        <classes>
+            <class name="AdminAuthorization" />
+            <class name="ClosePool" />
+        </classes>
+    </test>
+    <test name="AdminDeletePool">
+        <parameter name="browser" value="chrome" />
+        <classes>
+            <class name="AdminAuthorization" />
+            <class name="CreatePoolAndCheck" />
+            <class name="DeletePool" />
+        </classes>
+    </test>
+    <test name="AdminLogOff">
+        <parameter name="browser" value="chrome" />
+        <classes>
+            <class name="AdminAuthorization" />
+            <class name="AdminLogOff" />
+        </classes>
+    </test>
+</suite>

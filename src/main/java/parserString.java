@@ -1,14 +1,16 @@
+import java.io.IOException;
+
+import com.codeborne.selenide.SelenideElement;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-import java.io.IOException;
+//import javax.swing.text.Document;
 import java.net.URL;
 
+import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.open;
-
-//import javax.swing.text.Document;
 
 public class parserString {
 
