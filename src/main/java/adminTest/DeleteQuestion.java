@@ -9,9 +9,9 @@ import root.PageNavigator;
 
 import static com.codeborne.selenide.Selenide.*;
 
-public class DeleteQuestion extends AdminAuthorization{
+public class DeleteQuestion {
     PageNavigator pn = new PageNavigator();
-
+    int pageListSize;
     public void deleteQuestion(){
         // зашли в компанию
         pn.toAllCompanyPage();

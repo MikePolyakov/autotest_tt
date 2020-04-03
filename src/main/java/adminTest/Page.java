@@ -3,6 +3,7 @@ package adminTest;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
+import org.openqa.selenium.By;
 
 import static com.codeborne.selenide.Selenide.*;
 
@@ -43,5 +44,16 @@ public class Page {
 //        SelenideElement constructor = $("[class='constructor']");
 //        ElementsCollection allPage = constructor.$$("[class^='ant-collapse-item ant-collapse-no-arrow']");
         e.findBy(Condition.text(pageName)).click();
+    }
+    public void deletePageByName (String s){
+        SelenideElement constructor = $("[class='constructor']");
+        ElementsCollection allPageList = constructor.$$("[class^='ant-collapse-item ant-collapse-no-arrow']");
+        for(int i=0; i<allPageList.size(); i++) {
+            SelenideElement xx = allPageList.get(i).find("[class='collapse-header']");
+            if(xx.text().equals("СТРАНИЦА 1")) {
+                SelenideElement deletePageButton = allPageList.get(i).find(By.cssSelector("[class='fa fa-trash']"));
+                deletePageButton.click();
+            }
+        }
     }
 }

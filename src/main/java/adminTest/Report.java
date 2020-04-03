@@ -47,12 +47,23 @@ public class Report {
     }
 
     public SelenideElement checkReportByName(String s){
-        ElementsCollection listCollection1 = $$("[class^='item-title']");
-        listCollection1.size();
-        SelenideElement report = listCollection1.findBy(Condition.text(s));
+        ElementsCollection listCollection = $$("[class^='item-title']");
+        listCollection.size();
+        SelenideElement report = listCollection.findBy(Condition.text(s));
         return report;
     }
 
+    public void deleteReportButtonClick(){
+        SelenideElement findButtons = $("[class='ant-row-flex']");
+        SelenideElement deleteReportButton = findButtons.$(By.cssSelector("[class='fa fa-trash']"));
+        deleteReportButton.click();
+    }
+
+    public void deleteReportPopUpYes(){
+        SelenideElement confirmButtons = $("[class='ant-popover-inner-content']");
+        SelenideElement confirmButtonsYes = confirmButtons.$(By.cssSelector("[class='ant-btn ant-btn-alert ant-btn-sm']"));
+        confirmButtonsYes.click();
+    }
     public void reindexButtonIsClickable(){
         SelenideElement reindexButton = $("[class = 'analityc']").find(By.cssSelector("[class='button']"));
         ExpectedConditions.elementToBeClickable(reindexButton);

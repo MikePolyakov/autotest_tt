@@ -1,8 +1,10 @@
 package root;
 
 import adminTest.*;
+import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
+import org.openqa.selenium.By;
 
 import static com.codeborne.selenide.Selenide.*;
 
@@ -133,6 +135,10 @@ public class PageNavigation {
         String ss = srv.checkSurveyStatus(xx);
         return ss;
     }
+    public void deletePool(String poolName){
+        srv.findChangePoolButton();
+        srv.findAndClickDeletePoolButton();
+    }
 
 //создание страницы
     public void clickCreatePageButton(){
@@ -145,6 +151,9 @@ public class PageNavigation {
     public void clickPageByName(String s){
         ElementsCollection xx = pg.findPageList();
         pg.clickPageByName(xx, s);
+    }
+    public void deletePageByName(String s){
+        pg.deletePageByName(s);
     }
 
 //создание вопроса
@@ -173,16 +182,27 @@ public class PageNavigation {
         if (rpt.checkReportByName(reportName).exists()) return true;
         return false;
     }
+    public void clickReportByName(String reportName){
+        rpt.checkReportByName(reportName).click();
+    }
+    public void deleteReportButtonClick(){
+        rpt.deleteReportButtonClick();
+    }
+    public void deleteReportPopUpYes(){
+        rpt.deleteReportPopUpYes();
+    }
     public void createOpenReportNameForPool(String reportName, String poolName){
         rpt.chooseReportName(reportName);
         rpt.chooseAssociatePool(poolName);
         rpt.clickOpenReportButton();
         rpt.clickToCreateReport();
     }
+
     public boolean checkOpenReportByName(String reportName){
         sm.toAllOpenReportPage();
         if (rpt.checkReportByName(reportName).exists()) return true;
         return false;
     }
+
 
 }

@@ -13,7 +13,7 @@ import static com.codeborne.selenide.Selenide.open;
 import static com.codeborne.selenide.Selenide.sleep;
 import static org.testng.Assert.*;
 
-public class SmokeTest extends Start {
+public class SmokeTestAdmin extends Start {
     PageNavigation pn = new PageNavigation();
     GetMail gm= new GetMail();
     //залогинились под зарегистрированным пользователем
@@ -149,6 +149,55 @@ public class SmokeTest extends Start {
         System.out.println("createReport - пройден");
     }
 
+    //удалили вопрос
+    @Test (dependsOnMethods = "testAuthorisation")
+    public void deleteQuestion(){
+
+    }
+    //удалили страницу
+    @Test (dependsOnMethods = "testAuthorisation")
+    public void deletePage(){
+        pn.findAndClickCompany(companyNameString);
+        pn.clickPoolByName(poolNameString);
+        int n = pn.checkPoolCountPage();
+        assertTrue(n>3, "В отчете нет страниц, которые можно удалить!");
+        pn.deletePageByName("Страница 1");
+        int n1 = pn.checkPoolCountPage();
+        Assert.assertTrue(n1==n-1, "Количество страниц в отчете не изменилось!");
+        System.out.println("deletePage - пройден");
+    }
+    //удалили опрос
+    @Test (dependsOnMethods = "testAuthorisation")
+    public void deleteSurvey(){
+        pn.findAndClickCompany(companyNameString);
+        Assert.assertTrue(pn.checkPoolByName(poolNameString), "Нет опроса " + poolNameString + " в списке опросов компании!");
+        pn.clickPoolByName(poolNameString);
+        pn.deletePool(poolNameString);
+        Assert.assertFalse(pn.checkPoolByName(poolNameString), "Опрос " + poolNameString + " не удален!");
+        System.out.println("deleteSurvey - пройден");
+    }
+    //удалили отчет
+    @Test (dependsOnMethods = "testAuthorisation")
+    public void deleteReport(){
+        pn.toAllReportPage();
+        Assert.assertTrue(pn.checkReportByName(reportNameString), "Нет отчета " + reportNameString + " в списке всех отчетов!");
+        pn.clickReportByName(reportNameString);
+        pn.deleteReportButtonClick();
+        pn.deleteReportPopUpYes();
+        Assert.assertFalse(pn.checkReportByName(reportNameString), "Отчет " + reportNameString + " не удален!");
+        System.out.println("deleteReport - пройден");
+    }
+    //удалили открытый отчет
+    @Test (dependsOnMethods = "testAuthorisation")
+    public void deleteOpenReport(){
+        pn.toAllOpenReportPage();
+        Assert.assertTrue(pn.checkOpenReportByName(reportOpenNameString), "Нет отчета " + reportOpenNameString + " в списке всех отчетов!");
+        pn.clickReportByName(reportOpenNameString);
+        pn.deleteReportButtonClick();
+        pn.deleteReportPopUpYes();
+        Assert.assertFalse(pn.checkOpenReportByName(reportOpenNameString), "Отчет " + reportOpenNameString + " не удален!");
+        System.out.println("deleteOpenReport - пройден");
+    }
     //тест логофф
     @Test(dependsOnMethods = "testAuthorisation")
     public void testLogOff(){

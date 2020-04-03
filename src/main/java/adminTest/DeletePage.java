@@ -9,8 +9,9 @@ import root.PageNavigator;
 
 import static com.codeborne.selenide.Selenide.*;
 
-public class DeletePage extends AdminAuthorization{
+public class DeletePage {
         public void deletePage() {
+            int pageListSize;
         PageNavigator pn = new PageNavigator();
         pn.toAllCompanyPage();
  //       pn.findCompanyByName(companyNameString);

@@ -19,6 +19,7 @@ public class StartGreenTest {
     @BeforeSuite(alwaysRun=true)
     public void setUp (){
         baseUrl ="https://engagement-stage.talenttechlab.org/login/";
+
         browser=CHROME;
         timeout=15000;
         startMaximized = true;

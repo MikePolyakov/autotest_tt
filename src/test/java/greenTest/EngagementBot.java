@@ -125,6 +125,10 @@ public class EngagementBot extends StartGreenTest {
         store.close();
 //    WebDriverRunner.getWebDriver().quit();
     }
+    @Test
+    public void loginAsUser() {
+
+    }
 
     @AfterMethod
     private void closeBrowser() {
