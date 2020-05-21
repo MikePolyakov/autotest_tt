@@ -21,7 +21,8 @@ public class SlackBot {
         request.setHeader("Accept-Charset", "utf-8");
 // 2.       String s = "\uD83D\uDE40*[SL]* " + projectName.toUpperCase() +
 //                "\n" + "`Problem:` " + problemMessage;
-        String s =  "`Problem:` "+ problemMessage;
+//        String s =  "`Problem:` "+ problemMessage;
+        String s = problemMessage;
         ByteArrayOutputStream bout = new ByteArrayOutputStream();
         try {
             JsonFactory factory = new JsonFactory();
@@ -39,7 +40,7 @@ public class SlackBot {
         }
         catch (Exception e) {
             System.out.println(e.getMessage());
-        };
+        }
         return false;
     }
 }
