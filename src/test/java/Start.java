@@ -20,11 +20,11 @@ public class Start {
     public String reportNameString = "AutoTestReport";
     public String reportOpenNameString = "AutoTestOpenReport";
     public int pageListSize = 0;
-//    public String login = "ponomarevafortest@gmail.com";
-//    public String password = "123456-qwerty";
+    //    public String login = "ponomarevafortest@gmail.com";
+    //    public String password = "123456-qwerty";
     public String login = "tt.test.survey@gmail.com";
     public String password = "tt123456TT";
-//    public String loadStructureURL = "C:\\StructureAutotest.xlsx";
+    //    public String loadStructureURL = "C:\\StructureAutotest.xlsx";
     public String loadStructureURL = "";
 
     @BeforeSuite(alwaysRun=true)

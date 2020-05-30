@@ -14,20 +14,22 @@ public class Start {
 
     static final String PROTOCOL_PROP = "mail.store.protocol";
     static final String PROTOCOL_TYPE = "imaps";
-    String messageContent="";
-    parserString newParse = new parserString();
+    public static String messageContent="";
+    public static parserString newParse = new parserString();
     public String condition ="";
     public String companyNameString= "тиорлдж";
     public String companyPoolString = "AutoTestName";
     public int pageListSize = 0;
+    public static String login = "tt.test.survey@gmail.com";
+    public static String password = "tt123456TT";
 //    public String statusPool = "";
 
     @BeforeSuite(alwaysRun=true)
     public void setUp (){
-        baseUrl ="https://engagement-stage.talenttechlab.org/login/";
+//        baseUrl ="https://engagement-stage.talenttechlab.org/login/";
         browser=CHROME;
         timeout=15000;
-        startMaximized = true;
+//        startMaximized = true;
         driverManagerEnabled = false;
         holdBrowserOpen = true;
         //reopenBrowserOnFail = false;
