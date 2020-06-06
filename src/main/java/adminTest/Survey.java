@@ -4,6 +4,7 @@ import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.By;
+import org.testng.Assert;
 
 import static com.codeborne.selenide.Selenide.*;
 
@@ -93,5 +94,15 @@ public class Survey {
         SelenideElement upMenu = $("[class='page-header page-header--with-steps']").find("[class='constructor-tabs']");
         ElementsCollection constructorTabs = upMenu.$$("ant-radio-button");
         constructorTabs.findBy(Condition.text("Аналитика")).click();
+    }
+
+    public Survey surveysPageTest() {
+        //проверяем, что в основном окне есть данные опросов
+        ElementsCollection allRaw = $$("[class^='entity-list__item-wrapper']");
+        int elements_number = allRaw.size();
+        Assert.assertNotEquals(elements_number,
+                0,
+                "Пустой список Опросов");
+        return this;
     }
 }

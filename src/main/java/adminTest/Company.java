@@ -5,16 +5,14 @@ import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.testng.Assert;
 
 import static com.codeborne.selenide.Selenide.*;
 
 //класс для работы с компаниями: создаем, редактируем, проверяем наличие, загружаем оргструктуру и т д.
 public class Company {
 
-
-
-
-    public void findAndClickCompanyByName (String companyName) {
+    public Company findAndClickCompanyByName (String companyName) {
         SelenideElement allCompaniesView = $("[class='content__wrapper']");
         sleep(1000);
         ElementsCollection allCompanyName = allCompaniesView.$$("[class^='card__title']");
@@ -26,6 +24,7 @@ public class Company {
             }
         }
         sleep(1000);
+        return this;
     }
 
     public ElementsCollection findCompanyByName (String companyname){
@@ -38,20 +37,24 @@ public class Company {
         int getSizeCompany = y.size();
         return getSizeCompany;
     }
-    public void clickCompanyByName (ElementsCollection y){
+    public Company clickCompanyByName (ElementsCollection y){
         y.get(0).click();
+        return this;
     }
+
+
     public boolean checkCompanyByName(ElementsCollection y){
         if(y.get(0).exists()) return true;
         return false;
     }
 
-    public void clickRadioButtonStructure(ElementsCollection companyname){
+    public Company clickRadioButtonStructure(ElementsCollection companyname){
         companyname.get(0).click();
         SelenideElement header = $("[class='page-header page-header--with-steps']");
         SelenideElement headerButton = header.$("[class='ant-col ant-col-12']");
         ElementsCollection radioButtonCompany = headerButton.$$("[class^='ant-radio-button-wrapper']");
         radioButtonCompany.get(0).click();
+        return this;
     }
  /*   public void findAndClickStructureButtonOnCardCompany(String companyname){
         ElementsCollection allCompanyName = $$("[class^='ant-card-body']");
@@ -67,12 +70,13 @@ public class Company {
             }
         }
     }*/
-    public void loadCompanyStructure(String url){
+    public Company loadCompanyStructure(String url){
         SelenideElement inputFileButton = $("[class='content-card']");
         SelenideElement putFileButton = $(inputFileButton).find(By.cssSelector("[class='ant-upload ant-upload-select ant-upload-select-text']"));
         SelenideElement inputFile = $(putFileButton).find(By.cssSelector("[type='file']"));
         inputFile.sendKeys(url);
         sleep(10000);
+        return this;
     }
     public SelenideElement downloadCompanyStructureButton(){
         SelenideElement inputFileButton = $("[class='content-card']");
@@ -81,9 +85,10 @@ public class Company {
 //        ExpectedConditions.elementToBeClickable(downloadFileButton);
 //        downloadFileButton.click();
     }
-    public void checkButtonIsClicable(SelenideElement y){
+    public Company checkButtonIsClicable(SelenideElement y){
         ExpectedConditions.elementToBeClickable(y);
         y.click();
+        return this;
     }
 
     public SelenideElement findStructurePopUp(){
@@ -95,24 +100,34 @@ public class Company {
         String ff = notifMessage.text();
         return ff;
     }
-    public void loadStructurePopUpClickYes(SelenideElement y){
+    public Company loadStructurePopUpClickYes(SelenideElement y){
         SelenideElement notifClose =$(y).find(By.cssSelector("[class='ant-notification-close-x']"));
         notifClose.click();
+        return this;
     }
 
     public int checkCompanyStructure(){
         return $$("[class^='LazyLoad is-visible']").size();
     }
 
-    public void createCompanyButtonClick(){
+    public Company createCompanyButtonClick(){
         SelenideElement makeCompanyButton = $("[class='ant-btn ant-btn-primary']");
         makeCompanyButton.click();
+        return this;
     }
 
-    public void chooseCompanyName(String s){
+    public Company chooseCompanyName(String s){
         SelenideElement companyName = $("[class='page-body__form']");
         companyName.click();
         companyName.setValue(s);
+        return this;
+    }
+
+    public Company companiesPageTest() {
+        ElementsCollection allCompanies = $$("[class^='ant-col ant-col-6']");
+        int listCompanySize = allCompanies.size();
+        Assert.assertNotEquals(listCompanySize, 0, "Пустой список Компаний");
+        return this;
     }
 
 }

@@ -5,7 +5,8 @@ import java.nio.file.Paths;
 import java.util.Random;
 
 public class TextGenerator {
-    public static String generatorText() {
+
+    public static String some_text() {
         String result = "";
         String text = "src/main/resources/textgenerator.txt";
         Random r = new Random();

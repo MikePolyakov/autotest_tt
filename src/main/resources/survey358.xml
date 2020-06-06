@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="358">
+<test verbose="2"
+      name="pom.xml">
+    <classes>
+        <class name="Survey358">
+            <methods>
+                <include name="survey358"/>
+            </methods>
+        </class>
+    </classes>
+</test>
+</suite>

@@ -1,5 +1,3 @@
-import adminTest.*;
-import com.codeborne.selenide.Configuration;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import root.GetMail;
@@ -13,7 +11,7 @@ import static com.codeborne.selenide.Selenide.open;
 import static com.codeborne.selenide.Selenide.sleep;
 import static org.testng.Assert.*;
 
-public class SmokeTestAdmin extends Start {
+public class SmokeTestAdmin extends StartSmokeTestAdmin {
     PageNavigation pn = new PageNavigation();
     GetMail gm= new GetMail();
     //залогинились под зарегистрированным пользователем
@@ -21,7 +19,7 @@ public class SmokeTestAdmin extends Start {
     public void testAuthorisation() throws IOException, MessagingException{
         open(baseUrl);
         pn.getAutorization(login);
-        gm.getInboxFolder(login, password, PROTOCOL_PROP, PROTOCOL_TYPE);
+        gm.getInboxFolder(login, password);
         //+проверка
         System.out.println("testAuthorisation - пройден");
     }

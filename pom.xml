@@ -5,9 +5,6 @@
     <modelVersion>4.0.0</modelVersion>
 
     <properties>
-        <suiteXmlFile>src/main/resources/testng-healthCheck.xml</suiteXmlFile>
-<!--        <suiteXmlFile>src/main/resources/testng-surveyNordGold.xml</suiteXmlFile>-->
-<!--        <suiteXmlFile>src/main/resources/testng-surveyLenta.xml</suiteXmlFile>-->
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
@@ -64,7 +61,8 @@
                 <version>3.0.0-M4</version>
                 <configuration>
                     <suiteXmlFiles>
-                        <suiteXmlFile>${suiteXmlFile}</suiteXmlFile>
+                        <!--suppress UnresolvedMavenProperty -->
+                        <suiteXmlFile>src/main/resources/${suiteXmlFile}</suiteXmlFile>
                     </suiteXmlFiles>
                 </configuration>
             </plugin>

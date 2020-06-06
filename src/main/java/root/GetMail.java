@@ -19,8 +19,10 @@ import static com.codeborne.selenide.Selenide.sleep;
 public class GetMail {
     String messageContent="";
     parserString newParse = new parserString();
+    static final String PROTOCOL_PROP = "mail.store.protocol";
+    static final String PROTOCOL_TYPE = "imaps";
 
-    public void getInboxFolder(String user, String password, String PROTOCOL_PROP, String PROTOCOL_TYPE) throws MessagingException, IOException {
+    public void getInboxFolder(String user, String password) throws MessagingException, IOException {
         sleep(10000);
         // Устанавливаем протокол
         Properties props = new Properties();
@@ -50,7 +52,7 @@ public class GetMail {
                 Object content = message[i].getContent();
                 if (content != null) {
                     messageContent = content.toString();
-                    System.out.println(messageContent);
+//                    System.out.println(messageContent);
                 }
             }
             else if (contentType.contains("multipart")) {
@@ -59,10 +61,10 @@ public class GetMail {
                 for (int partCount = 0; partCount < numberOfParts; partCount++) {
                     MimeBodyPart part = (MimeBodyPart) multiPart.getBodyPart(partCount);
                     messageContent = part.getContent().toString();
-                    System.out.println(messageContent);
+//                    System.out.println(messageContent);
                 }
             }
-            System.out.println(messageContent);
+//            System.out.println(messageContent);
             newParse.parceAndClic(messageContent);
             sleep(3000);
             ElementsCollection equals = $$("[class^='error-message']");
