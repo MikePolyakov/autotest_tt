@@ -4,7 +4,8 @@
     ```bash
     mvn clean test -D suiteXmlFile=healthCheck.xml
     ```
-- Survey***
+- SurveyTest (надо добавить номер опроса в Start)
     ```bash
-    mvn clean test -D suiteXmlFile=survey***.xml
+    mvn clean test -D suiteXmlFile=survey.xml
     ```
+ 

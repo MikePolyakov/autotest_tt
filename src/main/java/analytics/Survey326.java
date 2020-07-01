@@ -1,35 +1,39 @@
-import org.testng.annotations.Test;
-import org.testng.annotations.AfterTest;
+package analytics;
 
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.Test;
 import root.TextGenerator;
-import surveyTest.SurveyPage;
+import root.utillities.SlackBot;
 
 import static com.codeborne.selenide.Selenide.open;
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 import static org.testng.Assert.assertEquals;
 
 
-public class Survey326 extends Start {
+public class Survey326 extends StartOld {
 
     String baseUrl = "http://survey.talenttechlab.com/e3861257b5";
+    String projectName = "Engagement";
+    String testName = " [prod] Nordgold Drive - 2020 ";
+    String result = "`Result:` " + projectName + testName + "passed";
 
-    SurveyPage welcome = new SurveyPage();
-    SurveyPage page_1 = new SurveyPage();
-    SurveyPage page_2 = new SurveyPage();
-    SurveyPage page_3 = new SurveyPage();
-    SurveyPage page_4 = new SurveyPage();
-    SurveyPage page_5 = new SurveyPage();
-    SurveyPage page_6 = new SurveyPage();
-    SurveyPage page_7 = new SurveyPage();
-    SurveyPage page_8 = new SurveyPage();
-    SurveyPage page_9 = new SurveyPage();
-    SurveyPage page10 = new SurveyPage();
-    SurveyPage last_page = new SurveyPage();
+    SurveyPageOld welcome = new SurveyPageOld();
+    SurveyPageOld page_1 = new SurveyPageOld();
+    SurveyPageOld page_2 = new SurveyPageOld();
+    SurveyPageOld page_3 = new SurveyPageOld();
+    SurveyPageOld page_4 = new SurveyPageOld();
+    SurveyPageOld page_5 = new SurveyPageOld();
+    SurveyPageOld page_6 = new SurveyPageOld();
+    SurveyPageOld page_7 = new SurveyPageOld();
+    SurveyPageOld page_8 = new SurveyPageOld();
+    SurveyPageOld page_9 = new SurveyPageOld();
+    SurveyPageOld page10 = new SurveyPageOld();
+    SurveyPageOld last_page = new SurveyPageOld();
 
 
     @Test
     public void survey326() {
-        int total = 2;
+        int total = 5;
         int count = 1;
         do {
             open(baseUrl);
@@ -113,7 +117,7 @@ public class Survey326 extends Start {
                 assertEquals(last_page.messageComplete(message),
                         1,
                         "Опрос не завершен");
-                System.out.println("Опрос Nordgold Drive - 2020 пройден успешно!" + count  + "/" + total);
+                System.out.println("Опрос " + testName + "пройден успешно!" + count  + "/" + total);
                 count += 1;
 
             } catch (Exception | AssertionError e) {
@@ -126,5 +130,6 @@ public class Survey326 extends Start {
     @AfterTest
     public void closeBrowser() {
         getWebDriver().quit();
+        SlackBot.sendResulttoSlack(projectName, result);
     }
 }

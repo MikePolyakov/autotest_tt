@@ -1,41 +1,46 @@
+package analytics;
+
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.Test;
 import root.TextGenerator;
-import surveyTest.SurveyPage;
+import root.utillities.SlackBot;
 
 import static com.codeborne.selenide.Selenide.open;
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 import static org.testng.Assert.assertEquals;
 
 
-public class Survey377 extends Start {
+public class Survey377 extends StartOld {
 
     String baseUrl = "https://survey.talenttechlab.com/28b4a8de59";
+    String projectName = "Engagement";
+    String testName = " [prod] EnergoPulse Power Machines 2020 ";
+    String result = "`Result:` " + projectName + testName + "passed";
 
-    SurveyPage welcome = new SurveyPage();
-    SurveyPage page_1 = new SurveyPage();
-    SurveyPage page_2 = new SurveyPage();
-    SurveyPage page_3 = new SurveyPage();
-    SurveyPage page_4 = new SurveyPage();
-    SurveyPage page_5 = new SurveyPage();
-    SurveyPage page_6 = new SurveyPage();
-    SurveyPage page_7 = new SurveyPage();
-    SurveyPage page_8 = new SurveyPage();
-    SurveyPage page_9 = new SurveyPage();
-    SurveyPage page10 = new SurveyPage();
-    SurveyPage page11 = new SurveyPage();
-    SurveyPage page12 = new SurveyPage();
-    SurveyPage page13 = new SurveyPage();
-    SurveyPage page14 = new SurveyPage();
-    SurveyPage page15 = new SurveyPage();
-    SurveyPage page16 = new SurveyPage();
-    SurveyPage page17 = new SurveyPage();
-    SurveyPage last_page = new SurveyPage();
+    SurveyPageOld welcome = new SurveyPageOld();
+    SurveyPageOld page_1 = new SurveyPageOld();
+    SurveyPageOld page_2 = new SurveyPageOld();
+    SurveyPageOld page_3 = new SurveyPageOld();
+    SurveyPageOld page_4 = new SurveyPageOld();
+    SurveyPageOld page_5 = new SurveyPageOld();
+    SurveyPageOld page_6 = new SurveyPageOld();
+    SurveyPageOld page_7 = new SurveyPageOld();
+    SurveyPageOld page_8 = new SurveyPageOld();
+    SurveyPageOld page_9 = new SurveyPageOld();
+    SurveyPageOld page10 = new SurveyPageOld();
+    SurveyPageOld page11 = new SurveyPageOld();
+    SurveyPageOld page12 = new SurveyPageOld();
+    SurveyPageOld page13 = new SurveyPageOld();
+    SurveyPageOld page14 = new SurveyPageOld();
+    SurveyPageOld page15 = new SurveyPageOld();
+    SurveyPageOld page16 = new SurveyPageOld();
+    SurveyPageOld page17 = new SurveyPageOld();
+    SurveyPageOld last_page = new SurveyPageOld();
 
 
     @Test
     public void survey377() {
-        int total = 2;
+        int total = 5;
         int count = 1;
         do {
             open(baseUrl);
@@ -152,7 +157,7 @@ public class Survey377 extends Start {
                 assertEquals(last_page.messageComplete(message),
                         1,
                         "Опрос не завершен");
-                System.out.println("Опрос Энергопульс 2020 Силовые Машины пройден успешно! "
+                System.out.println("Опрос " + testName + " пройден успешно! "
                         + count + "/"  + total);
                 count += 1;
 
@@ -167,5 +172,6 @@ public class Survey377 extends Start {
     @AfterTest
     public void closeBrowser() {
         getWebDriver().quit();
+        SlackBot.sendResulttoSlack(projectName, result);
     }
 }

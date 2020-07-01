@@ -1,7 +1,8 @@
-package surveyTest;
+package analytics;
 
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
+import root.TextGenerator;
 
 import java.util.Random;
 
@@ -9,13 +10,13 @@ import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.*;
 
-import root.TextGenerator;
 
-
-public class SurveyPage {
+public class SurveyPageOld {
     int min_v = 1;
 
-    public SurveyPage clickButtonNext() {
+
+
+    public SurveyPageOld clickButtonNext() {
 
         SelenideElement buttonNext = $("[data-test='next-btn']");
         buttonNext.waitUntil(visible, 5000).click();
@@ -23,18 +24,18 @@ public class SurveyPage {
         return this;
     }
 
-    public SurveyPage clickButtonStartSurvey() {
+    public SurveyPageOld clickButtonStartSurvey() {
         SelenideElement buttonStartSurvey = $(byText("Заполнить анкету"));
         buttonStartSurvey.waitUntil(visible, 5000).click();
         return this;
     }
 
-    public SurveyPage clickLinkDidntFindYourSubdivision() {
+    public SurveyPageOld clickLinkDidntFindYourSubdivision() {
         $("[class='pseudo-link pb-6']").waitUntil(visible, 5000).click();
         return this;
     }
 
-    public SurveyPage chooseSubdivision() {
+    public SurveyPageOld chooseSubdivision() {
         int v_icon_total = 1;
         boolean there_is_v_icon = true;
         int last_size = 1;
@@ -65,7 +66,7 @@ public class SurveyPage {
         return this;
     }
 
-    public SurveyPage answerAllQuestions() {
+    public SurveyPageOld answerAllQuestions() {
         ElementsCollection questionsOnPage = $$("[data-test='question']");
         System.out.println("-----------------------");
         System.out.println("questions on page = " + questionsOnPage.size() );
@@ -73,10 +74,14 @@ public class SurveyPage {
 
         questionsOnPage.forEach(item->{
             System.out.println("-----------------------");
+
+
             String id = item.getAttribute("id");
             id = id.substring(8);
             int idNumber = Integer.parseInt(id);
-            System.out.println("id = " + idNumber);
+            System.out.println("idNumber = " + idNumber);
+
+
             SelenideElement nextDiv = item.lastChild();
             String questionClass = nextDiv.getAttribute("class");
             System.out.println("class = " + questionClass);
@@ -87,7 +92,7 @@ public class SurveyPage {
                     SelenideElement newDiv = nextDiv.lastChild();
                     String newClass = newDiv.getAttribute("class");
                     if (newClass.equals("likert__body")) {
-                        inputAnswerForOpenQuestion(idNumber, TextGenerator.some_text());
+                        inputAnswerForOtherQuestionOnPageNew(idNumber, TextGenerator.some_text());
                     } else {
                         chooseAnswerForQuestionLikert(idNumber);
                     }
@@ -96,14 +101,14 @@ public class SurveyPage {
                     chooseAnswerForQuestionLikertNPS(idNumber);
                     break;
                 case "mono poly":
-                    chooseOptionForMonoPolyQuestion(idNumber);
+                    chooseOptionForMonoPolyQuestionNew(idNumber);
                     break;
                 case "mono":
                     if (nextDiv.find("[class='v-input__append-inner']").exists()) {
-                        min_v = chooseOptionForVListQuestion(idNumber, min_v );
+                        min_v = chooseOptionForVListQuestionNew(idNumber, min_v );
                     }
                     else {
-                        chooseOptionForMonoQuestion(idNumber);
+                        chooseOptionForMonoQuestionNew(idNumber);
                     }
                     break;
                 case "likert dichotomy":
@@ -119,7 +124,7 @@ public class SurveyPage {
         return this;
     }
 
-    public SurveyPage chooseAnswerForQuestionLikert(int number) {
+    public SurveyPageOld chooseAnswerForQuestionLikert(int number) {
         int min = 1;
         int max = 6;
         int diff = max - min;
@@ -135,7 +140,7 @@ public class SurveyPage {
         return this;
     }
 
-    public SurveyPage chooseAnswerForQuestionLikertDichotomy(int number) {
+    public SurveyPageOld chooseAnswerForQuestionLikertDichotomy(int number) {
         int min = 1;
         int max = 6;
         int diff = max - min;
@@ -153,7 +158,7 @@ public class SurveyPage {
         return this;
     }
 
-    public SurveyPage chooseAnswerForQuestionLikertDichotomy7(int number) {
+    public SurveyPageOld chooseAnswerForQuestionLikertDichotomy7(int number) {
         int min = 1;
         int max = 7;
         int diff = max - min;
@@ -169,7 +174,7 @@ public class SurveyPage {
         return this;
     }
 
-    public SurveyPage chooseAnswerForQuestionLikertNPS(int number) {
+    public SurveyPageOld chooseAnswerForQuestionLikertNPS(int number) {
         int min = 1;
         int max = 11;
         int diff = max - min;
@@ -185,8 +190,39 @@ public class SurveyPage {
         return this;
     }
 
+    public SurveyPageOld inputAnswerForFirstQuestionOnPage(String generatorLorem) {
+        SelenideElement d = $("[placeholder='Введите ответ']").
+                waitUntil(visible, 5000);
+        d.setValue(generatorLorem);
+        sleep(300);
+        return this;
+    }
 
-    public SurveyPage inputAnswerForOpenQuestion(int number, String generatorLorem) {
+    public SurveyPageOld inputAnswerForSecondQuestionOnPage(String generatorLorem) {
+        SelenideElement d = $$("[placeholder='Введите ответ']").get(1).
+                waitUntil(visible, 5000).setValue(generatorLorem);
+        return this;
+    }
+
+    public SurveyPageOld inputAnswerForLastQuestionOnPage(String generatorLorem) {
+        SelenideElement d = $$("[placeholder='Введите ответ']").last().
+                waitUntil(visible, 5000);
+        d.setValue(generatorLorem);
+        return this;
+    }
+
+    public SurveyPageOld inputAnswerForOtherQuestionOnPage(String generatorLorem) {
+        if ( $$("[placeholder='Введите ответ']").size() != 0) {
+            SelenideElement d = $("[placeholder='Введите ответ']").
+                    waitUntil(visible, 5000);
+            d.setValue(generatorLorem);
+            sleep(500);
+        }
+        System.out.println("pass");
+        return this;
+    }
+
+    public SurveyPageOld inputAnswerForOtherQuestionOnPageNew(int number, String generatorLorem) {
         String question = "[id='question" + number + "']";
         String ss = question + " [placeholder='Введите ответ']";
         SelenideElement d = $(ss).waitUntil(visible, 5000);
@@ -197,7 +233,7 @@ public class SurveyPage {
         return this;
     }
 
-    public int chooseOptionForVListQuestion(int number, int min_v) {
+    public int chooseOptionForVListQuestionNew(int number, int min_v) {
         String question = "[id='question" + number + "']";
         String v_icon = question + " [class='v-icon notranslate fal fa-angle-down theme--light']";
         SelenideElement r = $(v_icon).waitUntil(visible, 5000);
@@ -221,13 +257,53 @@ public class SurveyPage {
         return max_v;
     }
 
-    public SurveyPage chooseOptionForMonoPolyQuestion(int number) {
+
+    public SurveyPageOld chooseOptionForVListQuestion(int number, int min, int max) {
+        String question = "[id='question" + number + "']";
+        String v_icon = question + " [class='v-icon notranslate fal fa-angle-down theme--light']";
+        SelenideElement r = $(v_icon).waitUntil(visible, 5000);
+        r.waitUntil(visible, 5000).click();
+        sleep(300);
+        int diff = max - min;
+        Random random = new Random();
+        int i = random.nextInt(diff + 1);
+        i += min - 1;
+        String v_list = "[class='v-list-item v-list-item--link theme--light']";
+        ElementsCollection d = $$(v_list).shouldHaveSize(max);
+        d.get(i).waitUntil(visible, 5000).click();
+        System.out.println("pass");
+        return this;
+    }
+
+    public SurveyPageOld chooseOptionForMonoPolyQuestion(int number, int min, int max) {
+        int diff = max - min;
+        Random random = new Random();
+        int j = random.nextInt(diff + 1);
+        j += min - 1;
+        String question = "[id='question" + number + "']";
+        String last_option = question + " [class='display-inline-flex w-100 mono__answer cursor-pointer last']";
+        String option = question + " [class='display-inline-flex w-100 mono__answer cursor-pointer']";
+        if (j == max - 1) {
+            SelenideElement f = $(last_option).waitUntil(visible, 5000);
+            f.waitUntil(visible, 5000).click();
+        } else {
+            ElementsCollection d = $$(option).shouldHaveSize(max - 1);
+            d.get(j).waitUntil(visible, 5000).click();
+        }
+        return this;
+    }
+
+    public SurveyPageOld chooseOptionForMonoPolyQuestionNew(int number) {
         String question = "[id='question" + number + "']";
         String option = question + " [class='display-inline-flex w-100 mono__answer cursor-pointer']";
         String last_option = question + " [class='display-inline-flex w-100 mono__answer cursor-pointer last']";
+
         ElementsCollection d = $$(option);
+
         int max_mono_poly = d.size() + 1;
         int min_mono_poly = 1;
+
+
         int diff = max_mono_poly - min_mono_poly;
         Random random = new Random();
         int j = random.nextInt(diff + 1);
@@ -244,7 +320,7 @@ public class SurveyPage {
         return this;
     }
 
-    public SurveyPage chooseOptionForMonoQuestion(int number) {
+    public SurveyPageOld chooseOptionForMonoQuestionNew(int number) {
         String question = "[id='question" + number + "']";
         String option = question + " [class='display-inline-flex w-100 mono__answer cursor-pointer no-table']";
         String last_option = question + " [class='display-inline-flex w-100 mono__answer cursor-pointer no-table last']";
@@ -272,7 +348,28 @@ public class SurveyPage {
 
     }
 
-    public SurveyPage completeSurvey() {
+    public SurveyPageOld chooseOptionForMonoQuestion(int number, int min, int max) {
+        int diff = max - min;
+        Random random = new Random();
+        int j = random.nextInt(diff + 1);
+        j += min - 1;
+        String question = "[id='question" + number + "']";
+
+        String last_option = question + " [class='display-inline-flex w-100 mono__answer cursor-pointer no-table last']";
+        String option = question + " [class='display-inline-flex w-100 mono__answer cursor-pointer no-table']";
+        if (j == max - 1) {
+            SelenideElement f = $(last_option).waitUntil(visible, 5000);
+            f.waitUntil(visible, 5000).click();
+        } else {
+            ElementsCollection d = $$(option).shouldHaveSize(max-1);
+            d.get(j).waitUntil(visible, 5000).click();
+        }
+        return this;
+
+    }
+
+
+    public SurveyPageOld completeSurvey() {
         $(byText("Завершить опрос")).waitUntil(visible, 5000).click();
         System.out.println("pass");
         return this;
@@ -283,7 +380,7 @@ public class SurveyPage {
         return $$(byText(message)).shouldHaveSize(1).size();
     }
 
-    public SurveyPage clickBack() {
+    public SurveyPageOld clickBack() {
         $("[class='v-icon notranslate fal fa-angle-left theme--light']").
                 waitUntil(visible, 5000).click();
         return this;

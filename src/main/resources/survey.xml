@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="TUInsight2020">
+<suite name="survey_test">
 <test verbose="2"
       name="pom.xml">
     <classes>
-        <class name="Survey352">
+        <class name="SurveyTest">
             <methods>
-                <include name="survey352"/>
+                <include name="survey"/>
             </methods>
         </class>
     </classes>
