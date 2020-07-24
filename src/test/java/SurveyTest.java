@@ -14,6 +14,7 @@ import static org.testng.Assert.assertEquals;
 
 public class SurveyTest extends Start {
 
+    SurveyPage language = new SurveyPage();
     SurveyPage welcome = new SurveyPage();
     SurveyPage structure = new SurveyPage();
     SurveyPage new_page = new SurveyPage();
@@ -26,7 +27,14 @@ public class SurveyTest extends Start {
         do {
             open(baseUrl);
             try {
-
+                language
+                        .clickButtonChooseLanguage()
+                        .clickButtonNext();
+            }
+            catch (Exception | AssertionError e) {
+                e.printStackTrace();
+            }
+            try {
                 welcome
                         .clickButtonNext();
 
@@ -34,12 +42,20 @@ public class SurveyTest extends Start {
                     welcome
                             .clickButtonStartSurvey();
                 }
-
+            }
+            catch (Exception | AssertionError e) {
+                e.printStackTrace();
+            }
+            try {
                 structure
                         .clickLinkDidntFindYourSubdivision()
                         .chooseSubdivision()
                         .clickButtonNext();
-
+            }
+            catch (Exception | AssertionError e) {
+                e.printStackTrace();
+            }
+            try {
                 while ($("[data-test='next-btn']").exists()){
 
                     new_page
@@ -56,8 +72,8 @@ public class SurveyTest extends Start {
 
                 System.out.println("Опрос " + surveyNumber + " пройден успешно! " + count  + "/" + total);
                 count += 1;
-
-            } catch (Exception | AssertionError e) {
+            }
+            catch (Exception | AssertionError e) {
                 e.printStackTrace();
             }
         }
